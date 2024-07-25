@@ -28,6 +28,7 @@ form {
 .input-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 90%;
     margin-bottom: 1rem;
 }
@@ -127,5 +128,14 @@ iframe {
     .input-container {
         flex-direction: column;
         gap: 10px;
-    }    
+    }
+    #mood {
+        border-radius: 7px;
+        width: 65%;
+    }
+    select {
+        border-radius: 7px;
+        height: 40px;
+        padding: 0.5rem 4rem 0.5rem 0.5rem;
+    }
 }
