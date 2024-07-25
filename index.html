@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Music Recommender</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Mood Music Recommender</h1>
+    <form id="moodForm">
+        <div class="input-container">
+            <input id="mood" type="text" placeholder="Anlat">
+            <select name="language" id="language">
+                <option value="Any language">Random</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Chinese (Simplified)">Chinese</option>
+                <option value="English">English</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Russian">Russian</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Turkish" selected>Turkish</option>
+            </select>
+        </div>
+        <button type="submit">Get Music</button>
+    </form>
+    <div id="embed-iframe"></div>
+
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+    <script src="frontEnd.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

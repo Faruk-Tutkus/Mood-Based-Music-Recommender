@@ -1,0 +1,122 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgb(40, 40, 40);
+    transition: background-color 3s;
+    margin: 0px;
+}
+h1 {
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow:0px 0px 3px #ffffff33;
+    text-align: center;
+    min-width: 350px;
+    max-width: 500px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin-bottom: 1rem;
+}
+#mood {
+    width: 50%;
+    min-width: 200px;
+    padding: 0.5rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+    border: none;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    background-color: #28282869;
+    color: #fff;
+    border-radius: 7px 0 0 7px;
+    text-align: center;
+    transition: 1s;
+}
+#mood:focus {
+    width: 100%;
+    background-color: #ffffff69;
+    color: rgb(40,40,40);
+    box-shadow: 0 0 1em 0 rgba(255, 255, 255, 0.2);
+}
+#mood::placeholder {
+    color: #ffffff69;
+}
+:root {
+    --arrow-bg: rgba(255, 255, 255, 0.3);
+    --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
+    --option-bg: rgb(240, 0, 0);
+    --select-bg: #ffffff33;
+}
+select {
+    /* Reset */
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    font-family: 'Roboto Mono', monospace;
+    transition: background-color 1s;
+    /* Personalize */
+    max-width: 10rem;
+    padding: 1rem 4rem 1rem 1rem;
+    background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+      linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+    color: rgb(255, 255, 255);
+    border-radius: 0 7px 7px 0;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* Remove IE arrow */
+    &::-ms-expand {
+      display: none;
+    }
+    /* Remove focus outline */
+    &:focus {
+      outline: none;
+    }
+    /* <option> colors */
+}
+option {
+    color: rgb(255, 255, 255);
+    background-color: rgb(40,40,40);
+    border-radius: 100px;
+    text-align: center;
+}
+#language:focus, #mood:focus {
+    border-color: #fff;
+    outline: none;
+}
+
+button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ffffff33;
+    font-family: 'Roboto Mono', monospace;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 17px;
+    cursor: pointer;
+    transition: transform 0.3s background-color 1s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+iframe {
+    max-width: 750px;
+    transition: opacity 0.3s ease-in-out;
+    animation: identifier 1s;
+    opacity: 0.7;
+}
