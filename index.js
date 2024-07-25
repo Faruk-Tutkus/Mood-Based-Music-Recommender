@@ -45,8 +45,8 @@ document.getElementById('moodForm').addEventListener('submit', async function(e)
   }
 });
 async function getMusicForMood(mood) {
-    const clientId = '7c4aa97898ca46c6952fb75acaf00251';
-    const clientSecret = 'a2abc98169364a03915861bb68d14364';
+    const clientId = process.env.clientId;
+    const clientSecret = process.env.clientSecret;
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
