@@ -1,5 +1,7 @@
 const rand = Math.floor(Math.random() * 2)
 const promts = ['How do you feel?', 'What are you thinking?']
+const dotenv = require('dotenv')
+dotenv.config()
 document.getElementById('mood').placeholder = promts[rand]
 document.getElementById('moodForm').addEventListener('submit', async function(e) {
     e.preventDefault();
