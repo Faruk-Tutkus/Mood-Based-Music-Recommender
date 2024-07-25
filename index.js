@@ -1,7 +1,5 @@
 const rand = Math.floor(Math.random() * 2)
 const promts = ['How do you feel?', 'What are you thinking?']
-const dotenv = require('dotenv')
-dotenv.config()
 document.getElementById('mood').placeholder = promts[rand]
 document.getElementById('moodForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -19,12 +17,14 @@ document.getElementById('moodForm').addEventListener('submit', async function(e)
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ mood, language}),
+            body: JSON.stringify({ mood, language }),
         })
         const info = await response.json()
+        const clientId = info.clientId;
+        const clientSecret = info.clientSecret; 
         const text = info.response.replace('"', '').replace('.','')
         console.log(text)
-        const trackUri = await getMusicForMood(text);
+        const trackUri = await getMusicForMood(text, clientId, clientSecret);
         playMusic(trackUri);
     } catch (error) {
         console.error('Error text:', error);
@@ -46,9 +46,9 @@ document.getElementById('moodForm').addEventListener('submit', async function(e)
     document.getElementById('mood').animate(shakeAnim,shakeTiming)
   }
 });
-async function getMusicForMood(mood) {
-    const clientId = process.env.clientId;
-    const clientSecret = process.env.clientSecret;
+async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
+    const clientId = CLIENT_ID;
+    const clientSecret = CLIENTSECRET;
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
