@@ -1,3 +1,6 @@
+const rand = Math.floor(Math.random() * 2)
+const promts = ['How do you feel?', 'What are you thinking?']
+document.getElementById('mood').placeholder = promts[rand]
 document.getElementById('moodForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const mood = document.getElementById('mood').value
@@ -7,6 +10,7 @@ document.getElementById('moodForm').addEventListener('submit', async function(e)
       language = selector.options[Math.floor(Math.random() * 14) + 1].text
     }
     if (mood != '') {
+        document.getElementById('mood').placeholder = promts[rand]
       try {
         const response = await fetch('api/server', {
             method: 'POST',
