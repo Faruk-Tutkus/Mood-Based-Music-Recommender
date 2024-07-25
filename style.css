@@ -33,7 +33,7 @@ form {
 }
 #mood {
     width: 50%;
-    min-width: 200px;
+    min-width: 250px;
     padding: 0.5rem;
     font-family: 'Roboto Mono', monospace;
     font-size: 1.2rem;
@@ -70,7 +70,7 @@ select {
     transition: background-color 1s;
     /* Personalize */
     max-width: 10rem;
-    width: 8rem;
+    min-width: 1px;
     padding: 1rem 4rem 1rem 1rem;
     background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
       linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
@@ -91,7 +91,7 @@ select {
 option {
     color: rgb(255, 255, 255);
     background-color: rgb(40,40,40);
-    border-radius: 100px;
+    border-radius: 10px;
     text-align: center;
 }
 #language:focus, #mood:focus {
