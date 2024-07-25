@@ -15,7 +15,7 @@ h1 {
     text-shadow:0px 0px 3px #ffffff33;
     text-align: center;
     min-width: 350px;
-    max-width: 500px;
+    max-width: 400px;
 }
 form {
     display: flex;
@@ -70,6 +70,7 @@ select {
     transition: background-color 1s;
     /* Personalize */
     max-width: 10rem;
+    width: 8rem;
     padding: 1rem 4rem 1rem 1rem;
     background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
       linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
@@ -115,6 +116,7 @@ button:hover {
     transform: scale(1.05);
 }
 iframe {
+    width: 80%;
     max-width: 750px;
     transition: opacity 0.3s ease-in-out;
     animation: identifier 1s;
