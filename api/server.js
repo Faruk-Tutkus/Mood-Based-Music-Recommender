@@ -6,6 +6,8 @@ import {
 import dotenv from 'dotenv'
 dotenv.config()
 const apiKey = process.env.GEMINI_API_KEY;
+const clientId = process.env.CLIENTID
+const clientSecret = process.env.CLIENTSECRET
 const genAI = new GoogleGenerativeAI(apiKey);
 const safetySetting = [
   {
@@ -58,5 +60,5 @@ export default async function hanedler(req, res) {
   const result = await model.generateContent(prompt, generationConfig);
   console.log(result.response.text());
   const response = result.response.text()
-  res.json({ response })
+  res.json({ response, clientId, clientSecret })
 }
