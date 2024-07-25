@@ -44,19 +44,21 @@ const generationConfig = {
 export default async function hanedler(req, res) {
   const { mood, language } = req.body
   let prompt = ``
-  let rand = Math.floor(Math.random() * 5);
+  let rand = Math.floor(Math.random() * 6);
   let rand_words = Math.floor(Math.random() * 15) + 3;
   console.log(rand)
   if (rand == 0)
       prompt = `give me random in ${language} song lyrics and advices related to "${mood}".The sentence should consist of ${rand_words} words and the sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 1)
-      prompt = `give me random in ${language} song lyrics and advices related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
+      prompt = `give me random in ${language} song lyrics and advices related to "${mood}". The sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 2)
       prompt = `give me random in ${language} song name related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 3)
       prompt = `give me random in ${language} singer name related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 4)
       prompt = `give me random in ${language} sentence related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
+  else if (rand == 5)
+      prompt = `give me random in ${language} advice related to "${mood}". The sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
 
   const result = await model.generateContent(prompt, generationConfig);
   console.log(result.response.text());
