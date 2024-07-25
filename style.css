@@ -123,3 +123,9 @@ iframe {
     animation: identifier 1s;
     opacity: 0.7;
 }
+@media (max-width: 500px) {
+    .input-container {
+        flex-direction: column;
+        gap: 10px;
+    }    
+}
