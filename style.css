@@ -7,6 +7,9 @@ body {
     height: 100vh;
     background-color: rgb(40, 40, 40);
     transition: background-color 3s;
+    overflow-y: auto;
+    flex-direction: column; /* Ensure elements stack vertically */
+    padding: 0px;
     margin: 0px;
 }
 h1 {
