@@ -48,15 +48,15 @@ export default async function hanedler(req, res) {
   let rand_words = Math.floor(Math.random() * 15) + 3;
   console.log(rand)
   if (rand == 0)
-      prompt = `give me random in ${language} song lyrics and advices related to "${mood}".The sentence should consist of ${rand_words} words. It is in only one sentence without explanation and the sentence must not contain any word from "${mood}". Randomize by seed, Seed = (${Date.now()})`
+      prompt = `give me random in ${language} song lyrics and advices related to "${mood}".The sentence should consist of ${rand_words} words and the sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 1)
-      prompt = `give me random in ${language} song lyrics and advices related to "${mood}". The sentence should consist of ${rand_words} words. It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
+      prompt = `give me random in ${language} song lyrics and advices related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 2)
-      prompt = `give me random in ${language} song related to "${mood}". The sentence should consist of ${rand_words} words. It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
+      prompt = `give me random in ${language} song name related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 3)
-      prompt = `give me random in ${language} singer related to "${mood}". The sentence should consist of ${rand_words} words. It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
+      prompt = `give me random in ${language} singer name related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
   else if (rand == 4)
-      prompt = `give me random in ${language} sentence related to "${mood}". The sentence should consist of ${rand_words} words. It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
+      prompt = `give me random in ${language} sentence related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
 
   const result = await model.generateContent(prompt, generationConfig);
   console.log(result.response.text());
