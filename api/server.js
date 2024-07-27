@@ -47,21 +47,21 @@ export default async function hanedler(req, res) {
   let rand = Math.floor(Math.random() * 7);
   let rand_words = Math.floor(Math.random() * 15) + 3;
   console.log(rand)
-  if (rand == 0)
-      prompt = `give me random in ${language} song lyrics and advices related to "${mood}".The sentence should consist of ${rand_words} words and the sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-  else if (rand == 1)
-      prompt = `give me random in ${language} song lyrics and advices related to "${mood}". The sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-  else if (rand == 2)
-      prompt = `give me random in ${language} song name related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-  else if (rand == 3)
-      prompt = `give me random in ${language} feeling and mood-based sentence related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-  else if (rand == 4)
-      prompt = `give me random in ${language} sentence related to "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-  else if (rand == 5)
-      prompt = `give me random in ${language} advice related to "${mood}". The sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-  else if (rand == 6)
-      prompt = `give me random in ${language} pithy saying related to "${mood}". The sentence must not contain any word from "${mood}". It is in only one sentence without explanation. Randomize by seed, Seed = (${Date.now()})`
-
+  if (rand === 0) {
+    prompt = `Generate a random ${language} song lyric and advice related to the mood "${mood}". The sentence should be ${rand_words} words long and must not contain the word "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  } else if (rand === 1) {
+      prompt = `Generate a random ${language} song lyric and advice related to the mood "${mood}". The sentence must not contain the word "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  } else if (rand === 2) {
+      prompt = `Generate a random ${language} song name related to the mood "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  } else if (rand === 3) {
+      prompt = `Generate a random ${language} feeling or mood-based sentence related to "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  } else if (rand === 4) {
+      prompt = `Generate a random ${language} sentence related to the mood "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  } else if (rand === 5) {
+      prompt = `Generate a random ${language} advice related to the mood "${mood}". The sentence must not contain the word "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  } else if (rand === 6) {
+      prompt = `Generate a random ${language} pithy saying related to the mood "${mood}". The sentence must not contain the word "${mood}". Provide this in one sentence without explanation. Use randomization seed: ${Date.now()}.`;
+  }
 
   const result = await model.generateContent(prompt, generationConfig);
   console.log(result.response.text());
