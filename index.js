@@ -105,13 +105,13 @@ async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
     const accessToken = tokenData.access_token;
 
     const query = `${mood}`;
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`, {
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=25`, {
         headers: {
         'Authorization': `Bearer ${accessToken}`
         }
     });
     const data = await response.json();
-    const i = Math.floor(Math.random() * 20)
+    const i = Math.floor(Math.random() * 25)
     const albumCoverUrl = data.tracks.items[i].album.images[0].url
     console.log(data)
     setAlbumCoverColor(albumCoverUrl)
@@ -132,13 +132,13 @@ async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
   const accessToken = tokenData.access_token;
 
   const query = `${mood}`;
-  const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=10`, {
+  const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=20`, {
       headers: {
       'Authorization': `Bearer ${accessToken}`
       }
   });
   const data = await response.json();
-  const i = Math.floor(Math.random() * 10)
+  const i = Math.floor(Math.random() * 20)
   try {
       const albumCoverUrl = data.playlists.items[i].images[0].url
       console.log(data)
