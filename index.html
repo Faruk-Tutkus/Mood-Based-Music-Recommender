@@ -83,6 +83,7 @@
                     if (entry.isIntersecting) {
                         textElement.forEach(element => {
                             element.classList.remove('animate-text');
+                            element.style.borderRight = '1px solid';
                             // Trigger reflow (repaint) to reset the animation
                             void element.offsetWidth;
                             // Start animation
