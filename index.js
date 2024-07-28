@@ -56,7 +56,7 @@ document.getElementById('playlist').addEventListener('click', async function(e) 
   if (mood != '') {
     document.getElementById('mood').placeholder = promts[rand]
     try {
-      const response = await fetch('http://127.0.0.1:3000/server', {
+      const response = await fetch('api/server', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
