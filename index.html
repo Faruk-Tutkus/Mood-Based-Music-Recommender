@@ -8,34 +8,102 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Mood-Based Music Recommender</h1>
-    <form id="moodForm">
-        <div class="input-container">
-            <input id="mood" type="text" placeholder="Anlat">
-            <select name="language" id="language">
-                <option value="Any language">Random</option>
-                <option value="Arabic">Arabic</option>
-                <option value="Chinese (Simplified)">Chinese</option>
-                <option value="English">English</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-                <option value="Hindi">Hindi</option>
-                <option value="Italian">Italian</option>
-                <option value="Japanese">Japanese</option>
-                <option value="Korean">Korean</option>
-                <option value="Portuguese">Portuguese</option>
-                <option value="Russian">Russian</option>
-                <option value="Spanish">Spanish</option>
-                <option value="Turkish" selected>Turkish</option>
-            </select>
-        </div>
-            <div>
-            <button type="button" id="music">Get Music</button>
-            <button type="button" id="playlist">Get Playlist</button>
-        </div>
-    </form>
-    <div id="embed-iframe"></div>
+    <main>
+        <section id="intro">
+            <form id="moodForm">
+                <h1>Mood-Based Music Recommender</h1>
+                <div class="input-container">
+                    <input id="mood" type="text" placeholder="Anlat">
+                    <select name="language" id="language">
+                        <option value="Any language">Random</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Chinese (Simplified)">Chinese</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Turkish" selected>Turkish</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="button" id="music">Get Music</button>
+                    <button type="button" id="playlist">Get Playlist</button>
+                </div>
+                <div id="embed-iframe"></div>
+            </form>
+            
+        </section>
+    
+        <section id="second">
+            <footer>
+                <p>This site helps you find music that matches your current mood. Whether you're feeling happy, sad, or anything in between, simply describe your mood, select a language, and discover a playlist that resonates with you.</p>
+                <p style="font-size: 25px;">Sample Mood-Based Promts</p>
+                <div class="container">
+                    <p class="text">I feel unhappy right now</p>
+                    <p class="text">I tried so hard to love her</p>
+                    <p class="text">I think I've fallen in love</p>
+                    <p class="text">I feel very energized</p>
+                    <p class="text">I feel like doing nothing today</p>
+                    <p class="text">I need to dance</p>
+                    <p class="text">I feel very energized</p>
+                    <p class="text">I don't feel like going to school </p>
+                    <p class="text">I'm quiet and depressive</p>
+                    <p class="text">I beat cancer</p>
+                    <p class="text">I'm so happy today</p>
+                    <p class="text">I feel like crying for no reason</p>
+                    <p class="text">I regret it very much.</p>
+                    <p class="text">I want to be loved too</p>
+                </div>
+            </footer>
+        </section>
+        <section id="warning">
+            <footer>
+                <div class="container">
+                    <p style="font-size: 25px; color: wheat;">Warnings</p>
+                    <p>→ You need to log in to spotify to listen to the full songs</p>
+                    <p>→ Mobile devices always have to see the preview</p>
+                    <p class="text">Created by Faruk TUTKUS</p>
+                </div>
+            </footer>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textElement = document.querySelectorAll('.text')
+            const sections = document.querySelectorAll('section');
 
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        textElement.forEach(element => {
+                            element.classList.remove('animate-text');
+                            // Trigger reflow (repaint) to reset the animation
+                            void element.offsetWidth;
+                            // Start animation
+                            element.classList.add('animate-text');
+                        });
+                        
+                    }
+                });
+            }, {
+                threshold: 0.5 // Adjust this value as needed
+            });
+
+            sections.forEach(section => observer.observe(section));
+            textElement.forEach(element => {
+                element.addEventListener('animationend', () => {
+                    element.style.borderRight = '0px';
+                });
+            });
+            
+        });
+    </script>
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
     <script src="frontEnd.js"></script>
