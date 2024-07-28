@@ -145,7 +145,7 @@ async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
       console.log(data)
       setAlbumCoverColor(albumCoverUrl)
   } catch (error) {
-      getPlaylistForMood(moods, clientID, clientSecret)
+      getPlaylistForMood(moods, clientId, clientSecret)
       console.log(error)
   }
   return data.playlists.items[i].uri;
