@@ -64,9 +64,11 @@ document.getElementById('playlist').addEventListener('click', async function(e) 
           body: JSON.stringify({ mood, language}),
       })
       const info = await response.json()
+      const clientId = info.clientId;
+      const clientSecret = info.clientSecret;
       const text = info.response.replace('"', '').replace('.','')
       console.log(text)
-      const trackUri = await getPlaylistForMood(text);
+      const trackUri = await getPlaylistForMood(text, clientId, clientSecret);
       playMusic(trackUri);
   } catch (error) {
       console.error('Error text:', error);
@@ -115,9 +117,9 @@ async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
     setAlbumCoverColor(albumCoverUrl)
     return data.tracks.items[i].uri;
 };
-async function getPlaylistForMood(mood) {
-  const clientId = '7c4aa97898ca46c6952fb75acaf00251';
-  const clientSecret = 'a2abc98169364a03915861bb68d14364';
+async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
+  const clientId = CLIENT_ID;
+  const clientSecret = CLIENTSECRET;
   const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
