@@ -1,181 +1,112 @@
-const rand = Math.floor(Math.random() * 2)
-const promts = ['How do you feel?', 'What are you thinking?']
-document.getElementById('mood').placeholder = promts[rand]
-document.getElementById('music').addEventListener('click', async function(e) {
-    e.preventDefault();
-    const mood = document.getElementById('mood').value
-    const selector = document.getElementById('language')
-    let language = selector.options[selector.selectedIndex].text
-    if (language == 'Random') {
-      language = selector.options[Math.floor(Math.random() * 14) + 1].text
-    }
-    if (mood != '') {
-      try {
-        const response = await fetch('api/server', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ mood, language }),
-        })
-        const info = await response.json()
-        const clientId = info.clientId;
-        const clientSecret = info.clientSecret; 
-        const text = info.response.replace('"', '').replace('.','')
-        console.log(text)
-        const trackUri = await getMusicForMood(text, clientId, clientSecret);
-        playMusic(trackUri);
-    } catch (error) {
-        console.error('Error text:', error);
-    }
-  }
-  else{
-    document.getElementById('mood').placeholder = 'Give me a promt'
-    const shakeAnim = [
-      { transform: "translateX(0)" },
-      { transform: "translateX(-5px)" },
-      { transform: "translateX(5px)" },
-      { transform: "translateX(-5px)" },
-      { transform: "translateX(0)" },
-    ];
-    const shakeTiming = {
-      duration: 250,
-      iterations: 2,
-    };
-    document.getElementById('mood').animate(shakeAnim,shakeTiming)
-  }
-});
-document.getElementById('playlist').addEventListener('click', async function(e) {
-  e.preventDefault();
-  const mood = document.getElementById('mood').value
-  const selector = document.getElementById('language')
-  let language = selector.options[selector.selectedIndex].text
-  if (language == 'Random') {
-    language = selector.options[Math.floor(Math.random() * 14) + 1].text
-  }
-  if (mood != '') {
-    document.getElementById('mood').placeholder = promts[rand]
-    try {
-      const response = await fetch('api/server', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ mood, language}),
-      })
-      const info = await response.json()
-      const clientId = info.clientId;
-      const clientSecret = info.clientSecret;
-      const text = info.response.replace('"', '').replace('.','')
-      console.log(text)
-      const trackUri = await getPlaylistForMood(text, clientId, clientSecret);
-      playMusic(trackUri);
-  } catch (error) {
-      console.error('Error text:', error);
-  }
-}
-else{
-  document.getElementById('mood').placeholder = 'Give me a promt'
-  const shakeAnim = [
-    { transform: "translateX(0)" },
-    { transform: "translateX(-5px)" },
-    { transform: "translateX(5px)" },
-    { transform: "translateX(-5px)" },
-    { transform: "translateX(0)" },
-  ];
-  const shakeTiming = {
-    duration: 250,
-    iterations: 2,
-  };
-  document.getElementById('mood').animate(shakeAnim,shakeTiming)
-}
-});
-async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
-    const clientId = CLIENT_ID;
-    const clientSecret = CLIENTSECRET;
-    const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-        },
-        body: 'grant_type=client_credentials'
-    });
-    const tokenData = await tokenResponse.json();
-    const accessToken = tokenData.access_token;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Music Recommender</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section id="intro">
+            <form id="moodForm">
+                <h1>Mood-Based Music Recommender</h1>
+                <div class="input-container">
+                    <input id="mood" type="text" placeholder="Anlat">
+                    <select name="language" id="language">
+                        <option value="Any language">Random</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Chinese (Simplified)">Chinese</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Turkish" selected>Turkish</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="button" id="music">Get Music</button>
+                    <button type="button" id="playlist">Get Playlist</button>
+                </div>
+                <div id="embed-iframe"></div>
+            </form>
+            
+        </section>
+    
+        <section id="second">
+            <footer>
+                <p>This site helps you find music that matches your current mood. Whether you're feeling happy, sad, or anything in between, simply describe your mood, select a language, and discover a playlist that resonates with you.</p>
+                <p style="font-size: 25px;">Sample Mood-Based Promts</p>
+                <div class="container">
+                    <p class="text">I feel unhappy right now</p>
+                    <p class="text">I tried so hard to love her</p>
+                    <p class="text">I think I've fallen in love</p>
+                    <p class="text">I feel very energized</p>
+                    <p class="text">I feel like doing nothing today</p>
+                    <p class="text">I need to dance</p>
+                    <p class="text">I feel very energized</p>
+                    <p class="text">I don't feel like going to school </p>
+                    <p class="text">I'm quiet and depressive</p>
+                    <p class="text">I beat cancer</p>
+                    <p class="text">I'm so happy today</p>
+                    <p class="text">I feel like crying for no reason</p>
+                    <p class="text">I regret it very much.</p>
+                    <p class="text">I want to be loved too</p>
+                </div>
+            </footer>
+        </section>
+        <section id="warning">
+            <footer>
+                <div class="container">
+                    <p style="font-size: 25px; color: wheat;">Warnings</p>
+                    <p>→ You need to log in to spotify to listen to the full songs</p>
+                    <p>→ Mobile devices always have to see the preview</p>
+                    <p class="text">Created by Faruk TUTKUS</p>
+                </div>
+            </footer>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textElement = document.querySelectorAll('.text')
+            const sections = document.querySelectorAll('section');
 
-    const query = `${mood}`;
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=25`, {
-        headers: {
-        'Authorization': `Bearer ${accessToken}`
-        }
-    });
-    const data = await response.json();
-    const i = Math.floor(Math.random() * 25)
-    const albumCoverUrl = data.tracks.items[i].album.images[0].url
-    console.log(data)
-    setAlbumCoverColor(albumCoverUrl)
-    return data.tracks.items[i].uri;
-};
-async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
-  const clientId = CLIENT_ID;
-  const clientSecret = CLIENTSECRET;
-  const moods = mood
-  const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-      },
-      body: 'grant_type=client_credentials'
-  });
-  const tokenData = await tokenResponse.json();
-  const accessToken = tokenData.access_token;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        textElement.forEach(element => {
+                            element.classList.remove('animate-text');
+                            // Trigger reflow (repaint) to reset the animation
+                            void element.offsetWidth;
+                            // Start animation
+                            element.classList.add('animate-text');
+                        });
+                        
+                    }
+                });
+            }, {
+                threshold: 0.5 // Adjust this value as needed
+            });
 
-  const query = `${mood}`;
-  const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=10`, {
-      headers: {
-      'Authorization': `Bearer ${accessToken}`
-      }
-  });
-  const data = await response.json();
-  const i = Math.floor(Math.random() * 10)
-  try {
-      const albumCoverUrl = data.playlists.items[i].images[0].url
-      console.log(data)
-      setAlbumCoverColor(albumCoverUrl)
-  } catch (error) {
-      console.log(error)
-  }
-  return data.playlists.items[i].uri;
-};
-async function playMusic(trackUri) {
-    const element = document.getElementById('embed-iframe');
-    const options = {
-      uri: trackUri,
-      theme: 'dark'
-    };
-  
-    if (!window.embedController) {
-      window.onSpotifyIframeApiReady = (IFrameAPI) => {
-        IFrameAPI.createController(element, options, (EmbedController) => {
-          window.embedController = EmbedController;
-          EmbedController.play()
-          console.log(element)
+            sections.forEach(section => observer.observe(section));
+            textElement.forEach(element => {
+                element.addEventListener('animationend', () => {
+                    element.style.borderRight = '0px';
+                });
+            });
+            
         });
-      };
-    } else {
-      window.embedController.loadUri(trackUri);
-      window.embedController.play()
-    }
-};
-function setAlbumCoverColor(albumCoverUrl) {
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = albumCoverUrl;
-    img.onload = function() {
-      const colorThief = new ColorThief();
-      const color = colorThief.getColor(img);
-      document.body.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-    };
-  };
+    </script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+    <script src="frontEnd.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
