@@ -1,7 +1,7 @@
 const rand = Math.floor(Math.random() * 2)
 const promts = ['How do you feel?', 'What are you thinking?']
 document.getElementById('mood').placeholder = promts[rand]
-document.getElementById('moodForm').addEventListener('submit', async function(e) {
+document.getElementById('music').addEventListener('click', async function(e) {
     e.preventDefault();
     const mood = document.getElementById('mood').value
     const selector = document.getElementById('language')
@@ -45,6 +45,49 @@ document.getElementById('moodForm').addEventListener('submit', async function(e)
     document.getElementById('mood').animate(shakeAnim,shakeTiming)
   }
 });
+document.getElementById('playlist').addEventListener('click', async function(e) {
+  e.preventDefault();
+  const mood = document.getElementById('mood').value
+  const selector = document.getElementById('language')
+  let language = selector.options[selector.selectedIndex].text
+  if (language == 'Random') {
+    language = selector.options[Math.floor(Math.random() * 14) + 1].text
+  }
+  if (mood != '') {
+    document.getElementById('mood').placeholder = promts[rand]
+    try {
+      const response = await fetch('http://127.0.0.1:3000/server', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ mood, language}),
+      })
+      const info = await response.json()
+      const text = info.response.replace('"', '').replace('.','')
+      console.log(text)
+      const trackUri = await getPlaylistForMood(text);
+      playMusic(trackUri);
+  } catch (error) {
+      console.error('Error text:', error);
+  }
+}
+else{
+  document.getElementById('mood').placeholder = 'Give me a promt'
+  const shakeAnim = [
+    { transform: "translateX(0)" },
+    { transform: "translateX(-5px)" },
+    { transform: "translateX(5px)" },
+    { transform: "translateX(-5px)" },
+    { transform: "translateX(0)" },
+  ];
+  const shakeTiming = {
+    duration: 250,
+    iterations: 2,
+  };
+  document.getElementById('mood').animate(shakeAnim,shakeTiming)
+}
+});
 async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
     const clientId = CLIENT_ID;
     const clientSecret = CLIENTSECRET;
@@ -70,7 +113,34 @@ async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
     //console.log(data)
     setAlbumCoverColor(albumCoverUrl)
     return data.tracks.items[0].uri;
-}
+};
+async function getPlaylistForMood(mood) {
+  const clientId = '7c4aa97898ca46c6952fb75acaf00251';
+  const clientSecret = 'a2abc98169364a03915861bb68d14364';
+  const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+      },
+      body: 'grant_type=client_credentials'
+  });
+  const tokenData = await tokenResponse.json();
+  const accessToken = tokenData.access_token;
+
+  const query = `${mood}`;
+  const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=10`, {
+      headers: {
+      'Authorization': `Bearer ${accessToken}`
+      }
+  });
+  const data = await response.json();
+  const i = Math.floor(Math.random() * 10)
+  const albumCoverUrl = data.playlists.items[i].images[0].url
+  console.log(data)
+  setAlbumCoverColor(albumCoverUrl)
+  return data.playlists.items[i].uri;
+};
 async function playMusic(trackUri) {
     const element = document.getElementById('embed-iframe');
     const options = {
@@ -90,7 +160,7 @@ async function playMusic(trackUri) {
       window.embedController.loadUri(trackUri);
       window.embedController.play()
     }
-}
+};
 function setAlbumCoverColor(albumCoverUrl) {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -100,4 +170,4 @@ function setAlbumCoverColor(albumCoverUrl) {
       const color = colorThief.getColor(img);
       document.body.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
     };
-  }
+  };
