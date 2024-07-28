@@ -132,13 +132,13 @@ async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
   const accessToken = tokenData.access_token;
 
   const query = `${mood}`;
-  const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=20`, {
+  const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=10`, {
       headers: {
       'Authorization': `Bearer ${accessToken}`
       }
   });
   const data = await response.json();
-  const i = Math.floor(Math.random() * 20)
+  const i = Math.floor(Math.random() * 10)
   try {
       const albumCoverUrl = data.playlists.items[i].images[0].url
       console.log(data)
