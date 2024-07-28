@@ -120,7 +120,7 @@ async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
 async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
   const clientId = CLIENT_ID;
   const clientSecret = CLIENTSECRET;
-  const mood = mood
+  const moods = mood
   const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -145,7 +145,7 @@ async function getPlaylistForMood(mood, CLIENT_ID, CLIENTSECRET) {
       console.log(data)
       setAlbumCoverColor(albumCoverUrl)
   } catch (error) {
-      getPlaylistForMood(mood, clientID, clientSecret)
+      getPlaylistForMood(moods, clientID, clientSecret)
       console.log(error)
   }
   return data.playlists.items[i].uri;
