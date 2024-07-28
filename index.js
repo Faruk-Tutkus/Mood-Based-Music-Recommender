@@ -136,9 +136,13 @@ async function getPlaylistForMood(mood) {
   });
   const data = await response.json();
   const i = Math.floor(Math.random() * 10)
-  const albumCoverUrl = data.playlists.items[i].images[0].url
-  console.log(data)
-  setAlbumCoverColor(albumCoverUrl)
+  try {
+      const albumCoverUrl = data.playlists.items[i].images[0].url
+      console.log(data)
+      setAlbumCoverColor(albumCoverUrl)
+  } catch (error) {
+      console.log(error)
+  }
   return data.playlists.items[i].uri;
 };
 async function playMusic(trackUri) {
