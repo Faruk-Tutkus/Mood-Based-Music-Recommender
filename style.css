@@ -58,6 +58,7 @@ form {
 }
 :root {
     --arrow-bg: rgba(255, 255, 255, 0.3);
+    --spacing: 8px;
     --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
     --option-bg: rgb(240, 0, 0);
     --select-bg: #ffffff33;
@@ -139,4 +140,84 @@ iframe {
         border-radius: 7px;
         padding: 0.5rem 4rem 0.5rem 0.5rem;
     }
+}
+
+main {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    block-size: 100%;
+}
+main {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+  
+section {
+    min-height: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+section:nth-of-type(2) {
+    background-color: #ff1f64;
+}
+section:nth-of-type(3) {
+    background-color: #f1aa4b;
+}
+section > div {
+    background: #121618;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    max-width: 25rem;
+    position: relative;
+    opacity: 0;
+    transition: all 1s 10.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+  
+section[data-is-visible=true] > div {
+    opacity: 1;
+    top: 0px;
+}
+
+footer {
+    text-align: center;
+    color: #fff;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.5);
+    width: 800px;
+    min-width: 25px;
+    margin: 25px;
+}
+
+.container {
+    display: inline-block;
+    max-width: 100%;
+}
+.text {
+    text-align: center;
+    border-right: 1px solid;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0; /* Initially hidden */
+}
+.animate-text {
+    animation: typing 5s forwards, cursor .4s step-start 10 alternate;
+    opacity: 1; /* Show when animation starts */
+}
+@keyframes cursor {
+    50% { border-color: transparent; }
+}
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
 }
