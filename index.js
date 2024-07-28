@@ -109,10 +109,11 @@ async function getMusicForMood(mood, CLIENT_ID, CLIENTSECRET) {
         }
     });
     const data = await response.json();
-    const albumCoverUrl = data.tracks.items[0].album.images[0].url
-    //console.log(data)
+    const i = Math.floor(Math.random() * 20)
+    const albumCoverUrl = data.tracks.items[i].album.images[0].url
+    console.log(data)
     setAlbumCoverColor(albumCoverUrl)
-    return data.tracks.items[0].uri;
+    return data.tracks.items[i].uri;
 };
 async function getPlaylistForMood(mood) {
   const clientId = '7c4aa97898ca46c6952fb75acaf00251';
