@@ -178,7 +178,7 @@ section > div {
     max-width: 25rem;
     position: relative;
     opacity: 0;
-    transition: all 1s 10.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 2.5s 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
   
 section[data-is-visible=true] > div {
